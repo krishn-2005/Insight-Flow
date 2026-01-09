@@ -1,0 +1,35 @@
+############################
+# ENV FILES (VERY IMPORTANT)
+############################
+.env
+backend/.env
+
+############################
+# FRONTEND (React / Vite)
+############################
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+############################
+# BACKEND (FastAPI / Python)
+############################
+backend/__pycache__/
+backend/*.pyc
+backend/.venv/
+backend/venv/
+backend/env/
+
+############################
+# PYTHON
+############################
+__pycache__/
+*.py[cod]
+
+############################
+# IDE / OS
+############################
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
