@@ -56,7 +56,7 @@ Each query is designed to answer a **real business question**.
 
 ---
 
-## 🚀 How to Run Locally
+## ⚙️ How to Run Locally
 
 ### Backend
 ```bash
