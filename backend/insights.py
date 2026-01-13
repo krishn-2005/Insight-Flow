@@ -45,6 +45,7 @@ def get_top_customers_by_state(cursor, state):
         ) t
     ) ranked
     WHERE rn < 6
+    limit 5
     """
     cursor.execute(query, (state,))
     results = cursor.fetchall()
