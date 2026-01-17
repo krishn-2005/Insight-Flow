@@ -71,7 +71,6 @@ GROUP BY customer_id,customer_name,state
 WHERE rn < 6;
 
 -- Que 3
-
 SELECT 
     ship_mode,
     ROUND(AVG(days_taken), 2) AS Avg_Shipping_Days,
@@ -96,22 +95,6 @@ GROUP BY ship_mode
 ORDER BY Late_Percentage DESC;
 
 -- Que 4 
--- My final attempt for this question
-SELECT *,
-  ((monthly_total_sales - prev_sales ) / prev_sales) * 100
-  FROM ( 
-    SELECT *,
-    LAG(monthly_total_sales) OVER() AS "prev_sales"
-    FROM ( 
-    SELECT MONTHNAME(order_date) AS "month",
-    SUM(sales) "monthly_total_sales"
-    FROM orders
-    GROUP BY month,MONTH(order_date)
-    ORDER BY MONTH(order_date)
-    )t
-  ) mom;
-
--- Chatgpt refined query for better redability
 SELECT 
     order_year_month,
     monthly_sales,
@@ -153,10 +136,9 @@ SELECT *,
 WHERE loss_value < 0
 ORDER BY loss_p DESC;
 
--- Gemini Approach
+-- Total Profit & Loss & Loss pct
 
 WITH Profit_Loss_Table AS (
-    -- Step 1: Raw Data ko Tag karo (Loss ya Profit)
     SELECT 
         order_id,
         CASE WHEN profit < 0 THEN profit ELSE 0 END as loss_amt,
@@ -165,12 +147,8 @@ WITH Profit_Loss_Table AS (
 )
 
 SELECT 
-    -- Total Positive Profit
     SUM(profit_amt) as Total_Gross_Profit,
-    -- Total Loss (Absolute value to remove minus sign)
     ABS(SUM(loss_amt)) as Total_Lost_Money,
-    
-    -- The Final Percentage: (Loss / Profit) * 100
     ROUND(
         (ABS(SUM(loss_amt)) / SUM(profit_amt)) * 100, 
     2) as Loss_Percentage_Impact
